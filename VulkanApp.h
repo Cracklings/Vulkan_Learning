@@ -17,12 +17,15 @@ private:
 
 	void initializeInstance();
 	void enumeratePhysicalDevices();
+	void createSurface();
+	void createDevice();
 
-	GLFWwindow* window_;
+	GLFWwindow* window_ = nullptr;
 
-	vk::Instance instance_;
-	vk::PhysicalDevice physical_device_;
-	vk::Device device_;
-	vk::Queue queue_;
+	VkSurfaceKHR surface_;
+	vk::Instance instance_ = nullptr;
+	vk::PhysicalDevice physical_device_ = nullptr;
+	vk::Device device_ = nullptr;
+	vk::Queue queue_ = nullptr;
 };
 

@@ -1,6 +1,7 @@
 #include "VulkanApp.h"
 #include <gsl/gsl>
 #include <iostream>
+#include <vulkan/vk_platform.h>
 
 VulkanApp::VulkanApp()
 {
@@ -36,6 +37,8 @@ void VulkanApp::initializeVulkan()
 {
 	initializeInstance();
 	enumeratePhysicalDevices();
+	createSurface();
+	createDevice();
 }
 
 void VulkanApp::terminateVulkan()
@@ -72,10 +75,25 @@ void VulkanApp::enumeratePhysicalDevices()
 	{
 		std::string dev{ physical_device.getProperties().deviceName };
 		if (dev.find("Radeon") != std::string::npos ||
-			dev.find("Geforce") != std::string::npos)
+			dev.find("GTX") != std::string::npos)
 		{
 			physical_device_ = physical_device;
 			break;
 		}
 	}
+	Ensures(physical_device_);
 }
+
+void VulkanApp::createSurface()
+{
+	if (glfwCreateWindowSurface(instance_, window_, nullptr, &surface_))
+	{
+		throw std::runtime_error("Window surface initialization failed.");
+	}
+}
+
+void VulkanApp::createDevice()
+{
+
+}
+
