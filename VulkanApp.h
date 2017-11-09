@@ -19,13 +19,16 @@ private:
 	void enumeratePhysicalDevices();
 	void createSurface();
 	void createDevice();
+	void createCommandBuffers();
 
-	GLFWwindow* window_ = nullptr;
+	GLFWwindow* window_                              = nullptr;
 
 	VkSurfaceKHR surface_;
-	vk::Instance instance_ = nullptr;
-	vk::PhysicalDevice physical_device_ = nullptr;
-	vk::Device device_ = nullptr;
-	vk::Queue queue_ = nullptr;
-};
+	vk::Instance instance_                           = nullptr;
+	vk::PhysicalDevice physical_device_              = nullptr;
+	vk::Device device_                               = nullptr;
 
+	ptrdiff_t render_q_index_                        = -1;
+	std::vector<vk::CommandBuffer> command_buffer_   = {};
+	vk::CommandPool command_pool_                    = nullptr;
+};
